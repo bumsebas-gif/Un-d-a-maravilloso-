@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Ulang Tahun dan Valentine, Cintaku Selamanya - 14 Februari ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital@0;1&family=Great+Vibes&display=swap" rel="stylesheet">
+  
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      min-height:100vh;
+      background: 
+        linear-gradient(135deg, #fff5f0 0%, #ffe8e0 40%, #ffdab9 70%, #fff0e6 100%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><defs><pattern id="flowers" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M15 5 Q20 2 25 5 Q27 10 25 15 Q20 18 15 15 Q10 18 5 15 Q3 10 5 5 Z" fill="none" stroke="%23ffb6c1" stroke-width="2.5" opacity="0.4"/><circle cx="15" cy="10" r="5" fill="%23ff69b4" opacity="0.25"/></pattern></defs><rect width="120" height="120" fill="url(%23flowers)"/></svg>'),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><pattern id="hearts" width="25" height="25"><path d="M12.5 5 Q17 0 21.5 5 Q23 12 18 17 Q12.5 22 7 17 Q2 12 3.5 5 Z" fill="none" stroke="%23ff1493" stroke-width="2" opacity="0.35"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+      background-blend-mode: overlay;
+      font-family: 'Playfair Display', serif;
+      color: #4a2c2a;
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    #petals { position:fixed; inset:0; pointer-events:none; z-index:1; opacity:0; transition:opacity 1.5s; }
+    #petals.visible { opacity:1; }
+    .petal {
+      position:absolute;
+      width:24px; height:36px;
+      background:linear-gradient(45deg, #ff9a9e, #ffdab9, #fffacd);
+      border-radius:60% 40% 30% 70%/60% 30% 70% 40%;
+      box-shadow:0 0 20px rgba(255,182,193,0.8);
+      animation:float 16s infinite linear;
+      opacity:0.9;
+    }
+    @keyframes float {
+      0%   { transform:translateY(100vh) rotate(0deg) scale(0.7); }
+      100% { transform:translateY(-350px) rotate(1800deg) scale(1.2); }
+    }
+
+    .container { position:relative; z-index:10; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 20px; text-align:center; }
+
+    #startScreen {
+      position:fixed; inset:0; background:linear-gradient(135deg, #fff5f0, #ffe8e0);
+      display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:100; transition:opacity 1.5s ease;
+    }
+    #startScreen.hidden { opacity:0; pointer-events:none; }
+
+    #startButton {
+      font-family:'Dancing Script', cursive; font-size:4.8rem; color:#fff;
+      background:linear-gradient(45deg, #ff85c0, #ff1493); border:none; border-radius:50%;
+      width:340px; height:340px; cursor:pointer; box-shadow:0 25px 70px rgba(255,20,147,0.7);
+      transition:all 0.5s; display:flex; flex-direction:column; align-items:center; justify-content:center;
+      animation:beat 2s infinite; text-shadow:0 0 25px rgba(0,0,0,0.5);
+    }
+    #startButton:hover { transform:scale(1.15) rotate(6deg); box-shadow:0 35px 100px rgba(255,20,147,0.9); }
+    #startEmoji { font-size:8rem; margin-bottom:20px; }
+
+    h1 { font-family:'Great Vibes', cursive; font-size:8rem; color:#c71585; text-shadow:0 0 40px rgba(199,21,133,0.7); margin-bottom:30px; animation:glow 5s infinite alternate; }
+    @keyframes glow { from { text-shadow:0 0 30px #ff69b4, 0 0 60px #ff1493; } to { text-shadow:0 0 60px #ff1493, 0 0 120px #ff1493; } }
+
+    .subtitle { font-family:'Dancing Script', cursive; font-size:4rem; color:#8b4513; margin-bottom:70px; letter-spacing:5px; }
+
+    .section { opacity:0; transform:translateY(50px); transition:all 1.5s ease; width:100%; max-width:1100px; margin:0 auto 100px; }
+    .section.visible { opacity:1; transform:translateY(0); }
+
+    .letter { background:rgba(255,248,240,0.94); backdrop-filter:blur(22px); border-radius:50px; padding:90px 80px; box-shadow:0 45px 110px rgba(199,21,133,0.3); border:3px solid rgba(255,182,193,0.9); font-size:1.6rem; line-height:2.1; }
+
+    .hearts { font-size:5rem; color:#ff1493; animation:beat 1.8s infinite; margin:70px 0 60px; letter-spacing:30px; }
+
+    #loveTyping { font-family:'Dancing Script', cursive; font-size:5rem; color:#c71585; margin:60px 0; min-height:100px; white-space:nowrap; overflow:hidden; border-right:6px solid #ff1493; animation:blink 0.9s step-end infinite; }
+
+    .memories { display:flex; flex-wrap:wrap; justify-content:center; gap:50px; margin:90px 0; }
+    .memories img {
+      width:320px; height:400px; object-fit:cover; border-radius:35px; box-shadow:0 35px 80px rgba(0,0,0,0.45);
+      border:12px solid white; transform:rotate(-5deg); transition:all 0.6s;
+    }
+    .memories img:nth-child(even) { transform:rotate(6deg); }
+    .memories img:hover { transform:scale(1.2) rotate(0deg); box-shadow:0 60px 140px rgba(199,21,133,0.8); }
+
+    .heartButton, .bookButton {
+      font-family:'Dancing Script', cursive; font-size:4rem; color:#fff;
+      background:linear-gradient(45deg, #ff69b4, #ff1493); border:none; border-radius:50%;
+      width:280px; height:280px; cursor:pointer; box-shadow:0 25px 70px rgba(255,20,147,0.7);
+      transition:all 0.5s; margin:90px auto 70px; display:flex; align-items:center; justify-content:center;
+      animation:beat 2.4s infinite; text-shadow:0 0 25px rgba(0,0,0,0.5);
+    }
+    .heartButton:hover, .bookButton:hover { transform:scale(1.15); box-shadow:0 35px 100px rgba(255,20,147,0.9); }
+
+    .bookButton { background:linear-gradient(45deg, #d4a373, #b08968); font-size:3.5rem; width:240px; height:240px; }
+
+    .proposal { font-size:2.4rem; color:#c71585; margin:70px 0 50px; max-width:900px; line-height:1.7; display:none; }
+    .proposal.visible { display:block; }
+
+    .proposal-buttons { display:flex; gap:50px; justify-content:center; margin:60px 0; display:none; }
+    .proposal-buttons.visible { display:flex; }
+
+    .yesBtn, .noBtn {
+      font-family:'Dancing Script', cursive; font-size:3.5rem; padding:30px 70px; border-radius:70px;
+      cursor:pointer; transition:all 0.5s; box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    }
+    .yesBtn { background:#ff1493; color:white; border:none; }
+    .yesBtn:hover { transform:scale(1.15); background:#c71585; }
+    .noBtn { background:#d2691e; color:white; border:none; }
+    .noBtn:hover { transform:scale(1.15); background:#b08968; }
+
+    .response { font-size:3.5rem; color:#c71585; margin:90px 0; font-family:'Great Vibes', cursive; display:none; }
+    .response.visible { display:block; }
+
+    .mini-wedding { font-size:9rem; margin:90px 0 70px; animation:spin 16s linear infinite; display:flex; justify-content:center; align-items:center; gap:60px; }
+
+    @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+    footer { margin-top:140px; font-size:1.5rem; color:#6b4423; opacity:0.9; }
+
+    #musicToggle {
+      position:fixed; bottom:35px; right:35px; z-index:100;
+      background:rgba(255,255,255,0.6); backdrop-filter:blur(18px); border:none; border-radius:50%;
+      width:80px; height:80px; font-size:2.5rem; cursor:pointer; box-shadow:0 15px 40px rgba(0,0,0,0.35);
+      transition:all 0.4s; display:none;
+    }
+    #musicToggle.visible { display:block; }
+    #musicToggle:hover { transform:scale(1.3); background:rgba(255,182,193,0.95); }
+  </style>
+</head>
+<body>
+
+  <canvas id="petals"></canvas>
+
+  <!-- Layar awal -->
+  <div id="startScreen">
+    <div id="startEmoji">(⁠ ⁠◜⁠‿⁠◝⁠ ⁠)⁠♡</div>
+    <button id="startButton">Mulai kejutan spesialku untukmu, sayang 💕</button>
+  </div>
+
+  <div class="container">
+    <h1>Selamat Ulang Tahun dan Hari Valentine, Cintaku Selamanya</h1>
+    <div class="subtitle">14 Februari - Hari paling indah karena hari milikmu</div>
+
+    <div class="memories section">
+      <img src="./images/foto1.jpg" alt="Momen 1">
+      <img src="./images/foto2.jpg" alt="Momen 2">
+      <img src="./images/foto3.jpg" alt="Momen 3">
+      <img src="./images/foto4.jpg" alt="Momen 4">
+      <img src="./images/foto5.jpg" alt="Momen 5">
+      <img src="./images/foto6.jpg" alt="Momen 6">
+    </div>
+
+    <button class="heartButton section" id="heartToLetter">Lihat apa yang benar-benar kurasakan untukmu 💌</button>
+
+    <div class="letter section">
+      <p>Sayangku,</p>
+      <p>Hari ini 14 Februari… ulang tahunmu dan hari kasih sayang. Meskipun kita jauh, hatiku ada tepat di sana bersamamu, berdetak dengan irama yang sama seperti hatimu.</p>
+      <p>Sejak mengenalmu tanggal 13 Desember, semuanya jadi lebih indah. Pesanmu membangunkanku dengan senyuman, meme-meme yang kamu kirim membuatku tertawa tiba-tiba, dan setiap "aku kangen" yang kamu kirim mengingatkanku bahwa ini nyata, bahwa kita ini beneran.</p>
+      <p>Aku suka caramu: bagaimana kamu excited sama hal-hal kecil, bagaimana kamu cerita apa adanya tanpa filter, bagaimana kamu buat aku merasa penting meskipun kita jauh ribuan kilometer. Bahkan saat kamu marah padaku atau kirim pesan pendek "aku benci kamu"… kamu tetap yang terbaik yang pernah terjadi dalam hidupku.</p>
+      <p>Aku nggak butuh pelukan fisik untuk merasa kamu dekat; setiap notifikasi darimu adalah pelukan, setiap foto yang kamu kirim adalah ciuman. Bersamamu aku ingin terus begini: chat sampai subuh, rencana-rencana gila buat kapan kita ketemu, mimpi bersama, dan masa depan di mana setiap 14 Februari kita rayakan bukan cuma ulang tahunmu, tapi juga cinta kita yang semakin besar setiap hari.</p>
+      <p>Terima kasih sudah memilihku, jadi tempatku bersandar di hari buruk dan kebahagiaanku di hari baik. Aku janji akan terus jadi pendukungmu, teman seperjuanganmu, crush abadimu… dan mencintaimu lebih kuat meskipun jarak coba menguji kita.</p>
+      <p>Selamat ulang tahun dan selamat Hari Valentine, gadisku cantik. Semoga hari ini penuh dengan semua manis yang kamu pantas dapatkan. Aku mencintaimu dengan seluruh diriku dan lebih lagi.</p>
+      <p class="signature">Milikmu selamanya,<br>Sebas ❤️</p>
+    </div>
+
+    <div class="hearts section">💗 💗 💗 💗 💗 💗</div>
+
+    <div id="loveTyping" class="section"></div>
+
+    <button class="bookButton section" id="bookProposal">📖💍 Pertanyaan penting...</button>
+
+    <div class="proposal section" id="proposalText">
+      Apa kamu mau menikah dengan cowok ini yang suka bikin kamu marah dan yang akan selalu mencintaimu meskipun apa pun, yang selalu ada di sisimu, yang bikin harimu cerah dan juga menguji kesabaranmu? 😅💕
+    </div>
+
+    <div class="proposal-buttons section" id="proposalButtons">
+      <button class="yesBtn" id="yesBtn">YA, tentu saja ❤️</button>
+      <button class="noBtn" id="noBtn">Belum... untuk sekarang 😏</button>
+    </div>
+
+    <div class="response section" id="yesResponse">
+      Kalau begitu bersiaplah, karena aku akan buat setiap hari terasa seperti 14 Februari ini… tapi lebih indah lagi. Aku mencintaimu tanpa batas, calon istriku. 💍❤️
+    </div>
+
+    <div class="response section" id="noResponse">
+      Maaf banget… tapi tetap saja kamu akan jadi istriku suatu hari nanti. Nggak ada jalan keluar, sayangku 😈❤️
+    </div>
+
+    <div class="mini-wedding section">👰‍♀️🤵‍♂️💃🕺</div>
+
+    <footer>Dibuat dengan seluruh hati hanya untukmu • 14 Februari 2026</footer>
+  </div>
+
+  <button id="musicToggle">🎵</button>
+
+  <!-- Música - sube oh-my-angel.mp3 a la carpeta music -->
+  <audio id="bgMusic" loop>
+    <source src="./music/oh-my-angel.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
+
+  <script>
+    // Canvas pétalos
+    const canvas = document.getElementById('petals');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const petals = [];
+    for (let i = 0; i < 160; i++) {
+      petals.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        size: Math.random() * 28 + 18,
+        speed: Math.random() * 1.8 + 1,
+        rotation: Math.random() * 360,
+        rotSpeed: Math.random() * 2.5 - 1.25
+      });
+    }
+
+    function animatePetals() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      petals.forEach(p => {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation * Math.PI / 180);
+        ctx.fillStyle = `hsla(${Math.random()*40 + 330}, 95%, 82%, 0.95)`;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.size/2, p.size, 0, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+
+        p.y += p.speed;
+        p.rotation += p.rotSpeed;
+        if (p.y > canvas.height + p.size) {
+          p.y = -p.size * 2;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(animatePetals);
+    }
+
+    // Flujo
+    const startScreen = document.getElementById('startScreen');
+    const startButton = document.getElementById('startButton');
+    const heartToLetter = document.getElementById('heartToLetter');
+    const bookProposal = document.getElementById('bookProposal');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    startButton.addEventListener('click', () => {
+      startScreen.classList.add('hidden');
+      document.getElementById('petals').classList.add('visible');
+      document.querySelector('.memories').classList.add('visible');
+      heartToLetter.classList.add('visible');
+      animatePetals();
+    });
+
+    heartToLetter.addEventListener('click', () => {
+      heartToLetter.classList.remove('visible');
+      document.querySelector('.letter').classList.add('visible');
+      document.querySelector('.hearts').classList.add('visible');
+      document.getElementById('loveTyping').classList.add('visible');
+      bookProposal.classList.add('visible');
+      setTimeout(() => {
+        document.getElementById('loveTyping').style.display = 'block';
+        typeWriter();
+      }, 800);
+    });
+
+    bookProposal.addEventListener('click', () => {
+      bookProposal.classList.remove('visible');
+      document.getElementById('proposalText').classList.add('visible');
+      document.getElementById('proposalButtons').classList.add('visible');
+    });
+
+    yesBtn.addEventListener('click', () => {
+      document.getElementById('proposalButtons').classList.remove('visible');
+      document.getElementById('yesResponse').classList.add('visible');
+      document.querySelector('.mini-wedding').classList.add('visible');
+      document.querySelector('footer').classList.add('visible');
+      document.getElementById('musicToggle').classList.add('visible');
+    });
+
+    noBtn.addEventListener('click', () => {
+      document.getElementById('proposalButtons').classList.remove('visible');
+      document.getElementById('noResponse').classList.add('visible');
+      document.querySelector('.mini-wedding').classList.add('visible');
+      document.querySelector('footer').classList.add('visible');
+      document.getElementById('musicToggle').classList.add('visible');
+    });
+
+    // Typing "Te amo"
+    const loveText = "Aku mencintaimu... aku mencintaimu... aku mencintaimu... gadisku... segalanya bagiku... selamanya... ";
+    let i = 0;
+    const typingElement = document.getElementById('loveTyping');
+    function typeWriter() {
+      if (i < loveText.length) {
+        typingElement.innerHTML += loveText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      } else {
+        typingElement.innerHTML += ' ❤️';
+      }
+    }
+
+    // Música
+    const music = document.getElementById('bgMusic');
+    const toggle = document.getElementById('musicToggle');
+
+    toggle.addEventListener('click', () => {
+      if (music.paused) {
+        music.play().catch(() => {});
+        toggle.textContent = '🔇';
+      } else {
+        music.pause();
+        toggle.textContent = '🎵';
+      }
+    });
+
+    document.body.addEventListener('touchstart', () => music.play().catch(() => {}), { once: true });
+  </script>
+</body>
+</html>
